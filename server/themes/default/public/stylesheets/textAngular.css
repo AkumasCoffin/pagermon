@@ -13,16 +13,16 @@
 
 /* add generic styling for the editor */
 .ta-root.focussed > .ta-scroll-window.form-control {
-    border-color: #000000;
+    border-color: rgba(249, 115, 22, 0.5);
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(88, 93, 97, 0.6);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(88, 93, 97, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(88, 93, 97, 0.6);
+    -webkit-box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    -moz-box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
 }
 
 .ta-editor.ta-html, .ta-scroll-window.form-control {
     min-height: 300px;
-    background-color: rgba(84, 84, 84, 0.26);
+    background-color: rgba(2, 6, 23, 0.45);
     height: auto;
     overflow: auto;
     font-family: inherit;
@@ -120,11 +120,11 @@
     line-height: 1.42857143;
     text-align: left;
     white-space: normal;
-    background-color: #fff;
+    background-color: #10131b;
+    color: #a1a5b6;
     -webkit-background-clip: padding-box;
             background-clip: padding-box;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(148, 163, 184, 0.28);
     border-radius: 6px;
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -139,8 +139,9 @@
     padding: 8px 14px;
     margin: 0;
     font-size: 14px;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ebebeb;
+    background-color: rgba(2, 6, 23, 0.5);
+    color: #f9fafb;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
     border-radius: 5px 5px 0 0;
 }
 .popover-content {
@@ -174,7 +175,7 @@
     bottom: 1px;
     margin-left: -10px;
     content: " ";
-    border-top-color: #fff;
+    border-top-color: #10131b;
     border-bottom-width: 0;
 }
 .popover.bottom > .arrow {
@@ -190,5 +191,5 @@
     margin-left: -10px;
     content: " ";
     border-top-width: 0;
-    border-bottom-color: #fff;
+    border-bottom-color: #10131b;
 }

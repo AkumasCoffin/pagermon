@@ -40,10 +40,10 @@
         <tr ng-repeat="alias in aliases | filter: search">
           <!-- TODO: Add links to filters -->
           <td class="shrink" style="vertical-align: middle;"><input ng-model="alias.selected" type="checkbox"/></td>
-          <td class="shrink clickable-td" ng-click="aliasDetail(alias.id);" style="color: Maroon;">
+          <td class="shrink clickable-td" ng-click="aliasDetail(alias.id);" style="color: var(--accent);">
             <span style="font-family: monospace;"><strong>{{alias.id}}</strong></span>
           </td>
-          <td class="shrink clickable-td" ng-click="aliasDetail(alias.id);" style="color: Maroon;">
+          <td class="shrink clickable-td" ng-click="aliasDetail(alias.id);" style="color: var(--accent);">
             <span style="font-family: monospace;"><strong>{{alias.address}}</strong></span>
           </td>
           <td class="shrink" style="background-color: {{alias.color || 'transparent'}};">
@@ -58,7 +58,7 @@
           <td class="shrink"><strong>{{alias.agency || ''}}</strong></td>
           <td class="shrink"><i class="fa fa-circle text-success" ng-if="alias.ignore == 0"></i><i
                   class="fa fa-exclamation-circle text-danger" ng-if="alias.ignore == 1"></i></td>
-          <td class="expand clickable-td" ng-click="aliasDetail(alias.id);" style="color: Maroon;">{{alias.alias ||
+          <td class="expand clickable-td" ng-click="aliasDetail(alias.id);" style="color: var(--accent);">{{alias.alias ||
             ''}}
           </td>
           <td class="shrink clickable-td" ng-click="aliasMessages(alias.id);"><i

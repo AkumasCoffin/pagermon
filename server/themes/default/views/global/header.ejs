@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-title" content="PagerMon">
     <meta name="application-name" content="PagerMon">
     <meta name="msapplication-config" content="/browserconfig.xml?v=yyx75bRMkG">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#0f172a">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Libraries -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css">
@@ -34,7 +34,11 @@
     <!--<script async src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+    <% if (faKey && faKey !== 'changeme') { %>
     <script src="//kit.fontawesome.com/<%= faKey %>.js" crossorigin="anonymous"></script>
+    <% } else { %>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+    <% } %>
     <script src="/javascripts/angular-sortable-view.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/textAngular.css' />

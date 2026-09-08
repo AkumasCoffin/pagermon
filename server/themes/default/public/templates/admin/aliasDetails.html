@@ -1,9 +1,9 @@
 <!-- FontAwesome Helper Modal -->
-<style>.faHelperBlock{display:inline-block;text-align:center;width:60px;padding:10px 0;height:60px;border-radius:10px;cursor:pointer}.faHelperBlock:hover{background-color:#ffffe0}.faHelperIcon{font-size:24pt}</style>
+<style>.faHelperBlock{display:inline-block;text-align:center;width:60px;padding:10px 0;height:60px;border-radius:10px;cursor:pointer}.faHelperBlock:hover{background-color:rgba(249,115,22,0.15)}.faHelperIcon{font-size:24pt}</style>
 <div class="modal fade faHelperModal" tabindex="-1" role="dialog" aria-labelledby="faHelperModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" style="">
     <div class="modal-content">
-      <div class="modal-header" style="padding: 5px 15px;border-bottom: 1px solid #dddddd;">
+      <div class="modal-header" style="padding: 5px 15px;border-bottom: 1px solid rgba(148,163,184,0.15);">
         <span style="font-size:20px;" class="modal-title">Select Alias Icon:</span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding: 5px;">
           <span aria-hidden="true">&times;</span>
@@ -24,11 +24,11 @@
   </div>
 </div>
 <!-- Alias Template Modal -->
-<style>.aliasTemplateBlock{display:inline-block;text-align:center;width:60px;padding:10px 0;height:60px;border-radius:10px;cursor:pointer}.aliasTemplateBlock:hover{background-color:#ffffe0}.aliasTemplateIcon{font-size:24pt}</style>
+<style>.aliasTemplateBlock{display:inline-block;text-align:center;width:60px;padding:10px 0;height:60px;border-radius:10px;cursor:pointer}.aliasTemplateBlock:hover{background-color:rgba(249,115,22,0.15)}.aliasTemplateIcon{font-size:24pt}</style>
 <div class="modal fade aliasTemplateModal" tabindex="-1" role="dialog" aria-labelledby="aliasTemplateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" style="">
     <div class="modal-content">
-      <div class="modal-header" style="padding: 5px 15px;border-bottom: 1px solid #dddddd;">
+      <div class="modal-header" style="padding: 5px 15px;border-bottom: 1px solid rgba(148,163,184,0.15);">
         <span style="font-size:20px;" class="modal-title">Select Alias Template:</span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding: 5px;">
           <span aria-hidden="true">&times;</span>
@@ -52,7 +52,7 @@
 			<tbody>
 			  <tr ng-repeat="template in settings.aliases.templates | filter: search track by $index">
 				<td class="shrink clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal" style="background-color: {{template.color || 'transparent'}};">
-				  <span style="color: {{ template.color ? 'white' : 'black' }};"><strong>{{template.color}}</strong></span>
+				  <span style="color: {{ template.color ? 'white' : 'inherit' }};"><strong>{{template.color}}</strong></span>
 				<td class="shrink clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal">
 				  <span ng-if="template.icon" class="fa-stack fa-lg fa-fw" style="color: {{template.color || 'transparent'}};">
 					<i class="fa fa-circle fa-stack-2x"></i>
@@ -62,7 +62,7 @@
 				</td>
 				<td class="shrink clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal"><strong>{{template.agency || ''}}</strong></td>
 				<td class="shrink clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal"><i ng-if="!template.filter" class="fa fa-circle text-success"></i><i ng-if="template.filter" class="fa fa-exclamation-circle text-danger"></i></td>
-				<td class="expand clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal" style="color: Maroon;">{{template.name}}</td>
+				<td class="expand clickable-td" onclick="setAliasTemplate(this);" data-dismiss="modal" style="color: var(--accent);">{{template.name}}</td>
 			</tbody>
 		  </table>
       </div>
@@ -122,7 +122,7 @@
               <div class="col-xs-8 col-sm-9">
                 <div class="input-group">
                   <span class="input-group-addon" id="alias.icon.addon">
-                    <span class="fa-stack fa-lg fa-fw" style="color: {{alias.color || 'black'}};">
+                    <span class="fa-stack fa-lg fa-fw" style="color: {{alias.color || '#334155'}};">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-{{alias.icon || 'question'}} fa-stack-1x fa-inverse"></i>
                     </span>

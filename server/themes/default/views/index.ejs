@@ -100,24 +100,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="message in messages | filter: search">
+          <tr ng-repeat="message in messages | filter: search" style="box-shadow: inset 4px 0 0 {{message.color || '#334155'}};">
             <td class="shrink noMobile noSmall">{{message.date}}</td>
             <td class="shrink">{{message.timestamp}}</td>
             <% if (!hidesource || (login && user.role == 'admin')) { %>
-              <td class="shrink noMobile noSmall clickable-td" uib-popover-template="'templates/popover.html'" popover-append-to-body=true ng-click="popoverEl = 'source'" popover-trigger="'outsideClick'" style="background-color: {{message.color || 'grey'}}; text-align: center;">
-                <span class="small" style="color: white; font-family: monospace;"><strong>{{message.source}}</strong></span>
+              <td class="shrink noMobile noSmall clickable-td" uib-popover-template="'templates/popover.html'" popover-append-to-body=true ng-click="popoverEl = 'source'" popover-trigger="'outsideClick'" style="text-align: center;">
+                <span class="small" style="color: {{message.color || '#94a3b8'}}; font-family: monospace;"><strong>{{message.source}}</strong></span>
               </td>
             <% } %>
             <% if (!hidecapcode || (login && user.role == 'admin')) { %>
-              <td class="shrink noMobile noSmall clickable-td" uib-popover-template="'templates/popover.html'" popover-append-to-body=true ng-click="popoverEl = 'address'" popover-trigger="'outsideClick'" style="background-color: {{message.color || 'grey'}}; text-align: center;">
-                <span class="small" style="color: white; font-family: monospace;"><strong>{{message.address}}</strong></span>
+              <td class="shrink noMobile noSmall clickable-td" uib-popover-template="'templates/popover.html'" popover-append-to-body=true ng-click="popoverEl = 'address'" popover-trigger="'outsideClick'" style="text-align: center;">
+                <span class="small" style="color: {{message.color || '#94a3b8'}}; font-family: monospace;"><strong>{{message.address}}</strong></span>
               </td>
             <% } %>
             <td class="shrink clickable-td" ng-if="message.agency" uib-popover-template="'templates/popover.html'" popover-append-to-body=true ng-click="popoverEl = 'agency'" popover-trigger="'outsideClick'">
               <% if (iconsize == 'small') { %>
-              <span class="fa-stack fa-fw" style="color: {{message.color || 'grey'}};">
+              <span class="fa-stack fa-fw" style="color: {{message.color || '#334155'}};">
               <% } else { %>
-              <span class="fa-stack fa-lg fa-fw" style="color: {{message.color || 'grey'}};">
+              <span class="fa-stack fa-lg fa-fw" style="color: {{message.color || '#334155'}};">
               <% } %>
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i ng-if="message.icon" class="fa fa-{{message.icon}} fa-stack-1x fa-inverse"></i>
@@ -127,9 +127,9 @@
             </td>
             <td class="shrink" ng-if="!message.agency">
               <% if (iconsize == 'small') { %>
-              <span class="fa-stack fa-fw" style="color: {{message.color || 'grey'}};">
+              <span class="fa-stack fa-fw" style="color: {{message.color || '#334155'}};">
               <% } else { %>
-              <span class="fa-stack fa-lg fa-fw" style="color: {{message.color || 'grey'}};">
+              <span class="fa-stack fa-lg fa-fw" style="color: {{message.color || '#334155'}};">
               <% } %>
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i ng-if="message.icon" class="fa fa-{{message.icon}} fa-stack-1x fa-inverse"></i>
@@ -140,10 +140,10 @@
             <td class="shrink noMobile clickable-td" ng-if="user"
                 uib-popover-template="'templates/popover.html'" popover-append-to-body=true
                 ng-click="popoverEl = 'alias'" popover-trigger="'outsideClick'">
-              <span style="color: Maroon;">{{message.alias || 'Unknown'}}</span>
+              <span style="color: {{message.color || '#94a3b8'}};">{{message.alias || 'Unknown'}}</span>
             </td>
             <td class="shrink noMobile" ng-if="!user">
-              <span>{{message.alias || ''}}</span>
+              <span style="color: {{message.color || '#94a3b8'}};">{{message.alias || ''}}</span>
             </td>
             <td class="expand">
               <div highlight="message.message" replacement="init.replaceText" class="pagerMessage"></div>
