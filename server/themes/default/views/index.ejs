@@ -74,8 +74,6 @@
             <th colspan="2">
                 <div class="btn-group" data-toggle="buttons">
                   <button type="button" class="btn btn-default btn-sm" ng-click="updateData();" aria-label="Refresh" title="Refresh Messages"><i class="fa fa-refresh {{spinner}}" aria-hidden="true"></i></button>
-                  <button type="button" ng-if="notificationSupport == true" class="btn btn-default btn-sm" ng-class="{active: notificationEnabled == 'true'}" ng-click="toggleNotifications();" aria-label="Notifications" title="Toggle Browser Notifications">
-                    <i class="fa fa-bell" aria-hidden="true"></i></button>
                 <span class="dropdown">
                   <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" title="Message Limit">{{init.limit}} <span class="caret"></span></button>
                   <ul class="dropdown-menu" role="menu" style="margin-top: 9px;">
@@ -342,31 +340,6 @@
   <% } %>
   
     socketMode.on('messagePost', function(message) {
-        // Send Browser Notifications  
-    <% if (apisecurity) { %>
-      <% if (login) { %>
-        if ($scope.notificationEnabled == 'true') {
-        if (!message.agency) {
-          //Not showing messages for things that we don't know
-        } else {
-        
-          notify("PagerMon - " +message.agency + " - " + message.alias,message.message);
-        }
-        }
-        <% } %>
-      <% } else { %>
-        if ($scope.notificationEnabled == 'true') {
-        if (!message.agency) {
-          //Not showing messages for things that we don't know
-        } else {
-        
-          notify("PagerMon - " +message.agency + " - " + message.alias,message.message);
-        }
-        }
-       <% } %>
-      
-      
-    
           // only bother getting the new message if we're on page 1
           if ($scope.init.currentPage === 1) {
             console.log('New Message ID: '+message.id + ' currentPage: '+$scope.init.currentPage);
@@ -407,10 +380,6 @@
 
               // this should be popped out into a separate file
               $scope.updateData = function (page, query) {
-                // check if browser supports notifications
-                if ("Notification" in window) {
-                  $scope.notificationSupport = true;
-                }
                 // spinner start
                 $scope.spinner = 'fa-spin';
                 $scope.loading = true;
@@ -418,7 +387,6 @@
                 // get limit from cookiestore
                 var curPage = page || $routeParams.page || '1';
                 var limit = $cookies.get('messageLimit') || '';
-                $scope.notificationEnabled = $cookies.get('notificationEnabled') || 'true';
 
                 var queryObj = {};
                 queryObj.page = curPage;
@@ -582,27 +550,46 @@
                 $scope.updateData($scope.init.currentPage);
               };
 
-              $scope.toggleNotifications = function () {
-                if ($scope.notificationEnabled == 'true') {
-                  $scope.setCookie('notificationEnabled', 'false');
-                } else {
-                  $scope.setCookie('notificationEnabled', 'true');
-                  Notification.requestPermission(function (permission) {
-                    if (!('permission' in Notification)) {
-                      Notification.permission = permission;
-                }
-
-            });
-          }
-      };
-      
       $scope.clearSearch = function(){
         $scope.query = '';
       };
-      
+
+      // pause live updates after 1 hour of inactivity and require a click to resume
+      var idleLimit = 60 * 60 * 1000;
+      var idleTimer;
+      var idleTimedOut = false;
+      var activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+
+      function onUserActivity() {
+        if (idleTimedOut) return;
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(onIdleTimeout, idleLimit);
+      }
+
+      function onIdleTimeout() {
+        idleTimedOut = true;
+        removeActivityListeners();
+        socket.close();
+        adminSocket.close();
+        $('#idleModal').modal('show');
+      }
+
+      function removeActivityListeners() {
+        activityEvents.forEach(function (ev) {
+          document.removeEventListener(ev, onUserActivity, true);
+        });
+      }
+
+      activityEvents.forEach(function (ev) {
+        document.addEventListener(ev, onUserActivity, true);
+      });
+      idleTimer = setTimeout(onIdleTimeout, idleLimit);
+
       // destroy socket when we navigate away
       $scope.$on('$destroy', function() {
         socket.close();
+        clearTimeout(idleTimer);
+        removeActivityListeners();
       });
       
     }])
@@ -621,33 +608,24 @@
     $locationProvider.html5Mode({ enabled: true, requireBase: false, rewriteLinks: false });
   }]);
 
-function notify(notifyTitle,notifyMessage) {
-    if (!("Notification" in window)) {
-        console.log("This browser does not support desktop notification");
-      } else if (Notification.permission === "granted") {
-        var options = {
-          body: notifyMessage,
-          icon: '/favicon.ico'
-        };
-        var notification = new Notification(notifyTitle, options);
-      }
-    else if (Notification.permission !== 'denied') {
-        Notification.requestPermission(function (permission) {
-            if (!('permission' in Notification)) {
-                Notification.permission = permission;
-            }
-
-            if (permission === "granted") {
-                var options = {
-                    body: notifyMessage,
-                    icon: '/favicon.ico',
-                };
-                var notification = new Notification(notifyTitle,options);
-            }
-        });
-    }
-}
   </script>
+
+<!-- Inactivity timeout modal -->
+<div class="modal fade" id="idleModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="idleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="idleModalLabel">Are you still there?</h4>
+      </div>
+      <div class="modal-body">
+        <p>Live updates have been paused after 1 hour of inactivity.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.location.reload();">Resume</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div>
 
